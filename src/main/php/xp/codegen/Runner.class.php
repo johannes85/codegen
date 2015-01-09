@@ -145,7 +145,7 @@ class Runner extends \lang\Object {
       $generator->output= new FileSystemOutput($output);
     }
     $generator->output->addObserver(newinstance('util.Observer', array(), '{
-      public function update($obs, $arg= NULL) { Console::writeLine("     >> ", $arg); }
+      public function update($obs, $arg= NULL) { \\util\\cmd\\Console::writeLine("     >> ", $arg); }
     }'));
     Console::writeLine('===> Starting ', $generator);
     
