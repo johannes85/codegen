@@ -91,7 +91,7 @@
       </xsl:otherwise>
     </xsl:choose>
   </func:function>
-  
+
   <func:function name="my:separator">
     <xsl:param name="database"/>
     <xsl:param name="table"/>
@@ -140,21 +140,28 @@
     </xsl:choose>
   </func:function>
 
+  <func:function name="my:namespaceName">
+    <func:result select="translate($package, '.', '\')"/>
+    <!-- <func:result><xsl:value-of select="$package" /></func:result> -->
+  </func:function>
+
   <xsl:template match="/">
 
-    <xsl:text>&lt;?php
+    <xsl:text>&lt;?php namespace </xsl:text>
+    <xsl:value-of select="my:namespaceName()"/>
+
+    <xsl:text>;
 /* This class is part of the XP framework
  *
  */
  
-  uses(
-    'lang.XPClass',
-    'rdbms.DataSet',
-    'rdbms.Peer',
-    'rdbms.Criteria',
-    'rdbms.FieldType',
-    'util.HashmapIterator'
-  );&#10;</xsl:text>
+  use lang\XPClass;
+  use rdbms\DataSet;
+  use rdbms\Peer;
+  use rdbms\Criteria;
+  use rdbms\FieldType;
+  use util\HashmapIterator;&#10;
+    </xsl:text>
     <xsl:apply-templates/>
   <xsl:text>?></xsl:text>
   </xsl:template>
