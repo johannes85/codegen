@@ -194,11 +194,11 @@
   <xsl:text>;
   
     protected
-      $cache= array(</xsl:text>
+      $cache= [</xsl:text>
       <xsl:for-each select="my:referencing($this) | my:referenced($this)"><xsl:text>
-        '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => array(),</xsl:text>
+        '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => [],</xsl:text>
       </xsl:for-each><xsl:text>
-      );
+      ];
 
     static function __static() { 
       with ($peer= self::getPeer()); {
@@ -207,17 +207,17 @@
         <xsl:if test="attribute[@identity= 'true']">
           <xsl:text>&#10;        $peer->setIdentity('</xsl:text><xsl:value-of select="attribute[@identity= 'true']/@name"/><xsl:text>');</xsl:text>
         </xsl:if><xsl:text>
-        $peer->setPrimary(array(</xsl:text>
+        $peer->setPrimary([</xsl:text>
           <xsl:for-each select="index[@primary= 'true']/key">
             <xsl:text>'</xsl:text><xsl:value-of select="."/><xsl:text>'</xsl:text>
             <xsl:if test="position() != last()">, </xsl:if>
           </xsl:for-each>
-        <xsl:text>));
-        $peer->setTypes(array(&#10;</xsl:text>
+        <xsl:text>]);
+        $peer->setTypes([&#10;</xsl:text>
         <xsl:for-each select="attribute">
           <xsl:text>          '</xsl:text>
           <xsl:value-of select="@name"/>'<xsl:value-of select="substring('                                ', 0, 20 - string-length(@name))"/>
-          <xsl:text> =&gt; array('</xsl:text>
+          <xsl:text> =&gt; ['</xsl:text>
           <xsl:choose>
             <xsl:when test="@typename= 'int'">%d</xsl:when>
             <xsl:when test="@typename= 'string'">%s</xsl:when>
@@ -230,29 +230,29 @@
           <xsl:value-of select="substring-after(@type, 'DB_ATTRTYPE_')"/>
           <xsl:text>, </xsl:text>
           <xsl:value-of select="translate(@nullable, $lcletters, $ucletters)"/>
-          <xsl:text>)</xsl:text>
+          <xsl:text>]</xsl:text>
           <xsl:if test="position() != last()">,&#10;</xsl:if>
         </xsl:for-each><xsl:text>
-        ));</xsl:text>
+        ]);</xsl:text>
       <xsl:if test="0 &lt; count(my:referencing($this) | my:referenced($this))"><xsl:text>
-        $peer->setRelations(array(</xsl:text>
+        $peer->setRelations([</xsl:text>
         <xsl:for-each select="my:referencing($this)"><xsl:text>
-          '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => array(
+          '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => [
             'classname' => '</xsl:text><xsl:value-of select="concat($package, '.', my:prefixedClassName(@table))" /><xsl:text>',
-            'key'       => array(
+            'key'       => [
               </xsl:text><xsl:for-each select="key"><xsl:text>'</xsl:text><xsl:value-of select="@attribute" /><xsl:text>' => '</xsl:text><xsl:value-of select="@sourceattribute" /><xsl:text>',</xsl:text></xsl:for-each><xsl:text>
-            ),
-          ),</xsl:text>
+            ],
+          ],</xsl:text>
         </xsl:for-each>
         <xsl:for-each select="my:referenced($this)"><xsl:text>
-          '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => array(
+          '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => [
             'classname' => '</xsl:text><xsl:value-of select="concat($package, '.', my:prefixedClassName(../../@name))" /><xsl:text>',
-            'key'       => array(
+            'key'       => [
               </xsl:text><xsl:for-each select="key"><xsl:text>'</xsl:text><xsl:value-of select="@sourceattribute" /><xsl:text>' => '</xsl:text><xsl:value-of select="@attribute" /><xsl:text>',</xsl:text></xsl:for-each><xsl:text>
-            ),
-          ),</xsl:text>
+            ],
+          ],</xsl:text>
         </xsl:for-each><xsl:text>
-        ));</xsl:text>
+        ]);</xsl:text>
       </xsl:if><xsl:text>
       }
     }  
@@ -302,18 +302,18 @@
           <!-- Single key -->
           <xsl:choose>
             <xsl:when test="@unique = 'true'">
-              <xsl:text>      $r= self::getPeer()-&gt;doSelect(new Criteria(array('</xsl:text>
+              <xsl:text>      $r= self::getPeer()-&gt;doSelect(new Criteria(['</xsl:text>
               <xsl:value-of select="key"/>
               <xsl:text>', $</xsl:text>
               <xsl:value-of select="key"/>
-              <xsl:text>, EQUAL)));&#10;      return $r ? $r[0] : NULL;</xsl:text>
+              <xsl:text>, EQUAL]));&#10;      return $r ? $r[0] : NULL;</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:text>      return self::getPeer()-&gt;doSelect(new Criteria(array('</xsl:text>
+              <xsl:text>      return self::getPeer()-&gt;doSelect(new Criteria(['</xsl:text>
               <xsl:value-of select="key"/>
               <xsl:text>', $</xsl:text>
               <xsl:value-of select="key"/>
-              <xsl:text>, EQUAL)));</xsl:text>
+              <xsl:text>, EQUAL]));</xsl:text>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
@@ -325,11 +325,11 @@
             <xsl:when test="@unique = 'true'">
               <xsl:text>      $r= self::getPeer()-&gt;doSelect(new Criteria(&#10;</xsl:text>
               <xsl:for-each select="key">
-                <xsl:text>        array('</xsl:text>
+                <xsl:text>        ['</xsl:text>
                 <xsl:value-of select="."/>
                 <xsl:text>', $</xsl:text>
                 <xsl:value-of select="."/>
-                <xsl:text>, EQUAL)</xsl:text>
+                <xsl:text>, EQUAL]</xsl:text>
                 <xsl:if test="position() != last()">,</xsl:if><xsl:text>&#10;</xsl:text>
               </xsl:for-each>
               <xsl:text>      ));&#10;      return $r ? $r[0] : NULL;</xsl:text>
@@ -337,11 +337,11 @@
             <xsl:otherwise>
               <xsl:text>      return self::getPeer()-&gt;doSelect(new Criteria(&#10;</xsl:text>
               <xsl:for-each select="key">
-                <xsl:text>        array('</xsl:text>
+                <xsl:text>        ['</xsl:text>
                 <xsl:value-of select="."/>
                 <xsl:text>', $</xsl:text>
                 <xsl:value-of select="."/>
-                <xsl:text>, EQUAL)</xsl:text>
+                <xsl:text>, EQUAL]</xsl:text>
                 <xsl:if test="position() != last()">,</xsl:if><xsl:text>&#10;</xsl:text>
               </xsl:for-each>
               <xsl:text>      ));</xsl:text>
@@ -390,7 +390,7 @@
     </xsl:variable>
     <xsl:variable name="keys4criteria">
       <xsl:for-each select="key">
-        <xsl:text>          array('</xsl:text><xsl:value-of select="@sourceattribute" /><xsl:text>', $this->get</xsl:text><xsl:value-of select="my:ucfirst(@attribute)" /><xsl:text>(), EQUAL)</xsl:text>
+        <xsl:text>          ['</xsl:text><xsl:value-of select="@sourceattribute" /><xsl:text>', $this->get</xsl:text><xsl:value-of select="my:ucfirst(@attribute)" /><xsl:text>(), EQUAL]</xsl:text>
         <xsl:if test="position() != last()"><xsl:text>,&#10;</xsl:text></xsl:if>
       </xsl:for-each>
     </xsl:variable>
@@ -470,7 +470,7 @@
     </xsl:variable>
     <xsl:variable name="keys4criteria">
       <xsl:for-each select="key">
-        <xsl:text>          array('</xsl:text><xsl:value-of select="@attribute" /><xsl:text>', $this->get</xsl:text><xsl:value-of select="my:ucfirst(@sourceattribute)" /><xsl:text>(), EQUAL)</xsl:text>
+        <xsl:text>          ['</xsl:text><xsl:value-of select="@attribute" /><xsl:text>', $this->get</xsl:text><xsl:value-of select="my:ucfirst(@sourceattribute)" /><xsl:text>(), EQUAL]</xsl:text>
         <xsl:if test="position() != last()"><xsl:text>,&#10;</xsl:text></xsl:if>
       </xsl:for-each>
     </xsl:variable>
