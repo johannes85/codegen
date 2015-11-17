@@ -156,7 +156,6 @@
  */
  
   use lang\XPClass;
-  use rdbms\DataSet;
   use rdbms\Peer;
   use rdbms\Criteria;
   use rdbms\FieldType;
@@ -175,7 +174,7 @@
    *
    * @purpose  Datasource accessor
    */
-  class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
+  class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends \rdbms\DataSet {
     public&#10;</xsl:text>
 
   <!-- Attributes -->
