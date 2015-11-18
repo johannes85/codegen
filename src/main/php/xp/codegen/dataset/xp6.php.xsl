@@ -159,7 +159,7 @@ use util\HashmapIterator;&#10;</xsl:text>
     <xsl:apply-templates/>
     <xsl:text>?></xsl:text>
   </xsl:template>
-  
+
   <xsl:template match="table">
     <xsl:variable name="primary_key_unique" select="index[@primary= 'true' and @unique= 'true']/key/text()"/>
 
@@ -196,21 +196,21 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
     ];
 
   static function __static() {
-    with ($peer= self::getPeer()); {
-      $peer->setTable('</xsl:text><xsl:value-of select="my:separator(@database, @name, @dbtype)"/><xsl:text>');
-      $peer->setConnection('</xsl:text><xsl:value-of select="@dbhost"/><xsl:text>');</xsl:text>
+    $peer= self::getPeer();
+    $peer->setTable('</xsl:text><xsl:value-of select="my:separator(@database, @name, @dbtype)"/><xsl:text>');
+    $peer->setConnection('</xsl:text><xsl:value-of select="@dbhost"/><xsl:text>');</xsl:text>
         <xsl:if test="attribute[@identity= 'true']">
-        <xsl:text>&#10;      $peer->setIdentity('</xsl:text><xsl:value-of select="attribute[@identity= 'true']/@name"/><xsl:text>');</xsl:text>
+        <xsl:text>&#10;    $peer->setIdentity('</xsl:text><xsl:value-of select="attribute[@identity= 'true']/@name"/><xsl:text>');</xsl:text>
         </xsl:if><xsl:text>
-      $peer->setPrimary([</xsl:text>
+    $peer->setPrimary([</xsl:text>
           <xsl:for-each select="index[@primary= 'true']/key">
           <xsl:text>'</xsl:text><xsl:value-of select="."/><xsl:text>'</xsl:text>
             <xsl:if test="position() != last()">, </xsl:if>
           </xsl:for-each>
         <xsl:text>]);
-      $peer->setTypes([&#10;</xsl:text>
+    $peer->setTypes([&#10;</xsl:text>
         <xsl:for-each select="attribute">
-        <xsl:text>        '</xsl:text>
+        <xsl:text>      '</xsl:text>
         <xsl:value-of select="@name"/>'<xsl:value-of select="substring('                                ', 0, 20 - string-length(@name))"/>
         <xsl:text> =&gt; ['</xsl:text>
           <xsl:choose>
@@ -228,28 +228,27 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
         <xsl:text>]</xsl:text>
           <xsl:if test="position() != last()">,&#10;</xsl:if>
         </xsl:for-each><xsl:text>
-      ]);</xsl:text>
+    ]);</xsl:text>
       <xsl:if test="0 &lt; count(my:referencing($this) | my:referenced($this))"><xsl:text>
-      $peer->setRelations([</xsl:text>
+    $peer->setRelations([</xsl:text>
         <xsl:for-each select="my:referencing($this)"><xsl:text>
         '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => [
-          'classname' => '</xsl:text><xsl:value-of select="concat($package, '.', my:prefixedClassName(@table))" /><xsl:text>',
-          'key'       => [
+        'classname' => '</xsl:text><xsl:value-of select="concat($package, '.', my:prefixedClassName(@table))" /><xsl:text>',
+        'key'       => [
             </xsl:text><xsl:for-each select="key"><xsl:text>'</xsl:text><xsl:value-of select="@attribute" /><xsl:text>' => '</xsl:text><xsl:value-of select="@sourceattribute" /><xsl:text>',</xsl:text></xsl:for-each><xsl:text>
-          ],
-        ],</xsl:text>
+        ],
+      ],</xsl:text>
         </xsl:for-each>
         <xsl:for-each select="my:referenced($this)"><xsl:text>
         '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => [
-          'classname' => '</xsl:text><xsl:value-of select="concat($package, '.', my:prefixedClassName(../../@name))" /><xsl:text>',
-          'key'       => [
+        'classname' => '</xsl:text><xsl:value-of select="concat($package, '.', my:prefixedClassName(../../@name))" /><xsl:text>',
+        'key'       => [
             </xsl:text><xsl:for-each select="key"><xsl:text>'</xsl:text><xsl:value-of select="@sourceattribute" /><xsl:text>' => '</xsl:text><xsl:value-of select="@attribute" /><xsl:text>',</xsl:text></xsl:for-each><xsl:text>
-          ],
-        ],</xsl:text>
+        ],
+      ],</xsl:text>
         </xsl:for-each><xsl:text>
-      ]);</xsl:text>
+    ]);</xsl:text>
       </xsl:if><xsl:text>
-    }
   }  
 
   /**
@@ -408,7 +407,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
           ->invoke(null)
           ->doSelect(new Criteria(&#10;  </xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
-      ));
+        ));
     return $r ? $r[0] : null;&#10;  }&#10;</xsl:text>
       </xsl:when>
 
@@ -426,9 +425,9 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
     return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
       ->getMethod('getPeer')
       ->invoke(null)
-      ->doSelect(new Criteria(&#10;</xsl:text>
+      ->doSelect(new Criteria(&#10;  </xsl:text>
         <xsl:value-of select="$keys4criteria" /><xsl:text>
-    ));
+      ));
   }
 
   /**
@@ -443,9 +442,9 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
     return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
       ->getMethod('getPeer')
       ->invoke(null)
-      ->iteratorFor(new Criteria(&#10;</xsl:text>
+      ->iteratorFor(new Criteria(&#10;  </xsl:text>
         <xsl:value-of select="$keys4criteria" /><xsl:text>
-    ));
+      ));
   }&#10;</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
@@ -486,9 +485,9 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
       : XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
           ->getMethod('getPeer')
           ->invoke(null)
-          ->doSelect(new Criteria(&#10;</xsl:text>
+          ->doSelect(new Criteria(&#10;  </xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
-      ));
+        ));
     return $r ? $r[0] : null;&#10;    }&#10;</xsl:text>
       </xsl:when>
 
@@ -506,9 +505,9 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
     return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
       ->getMethod('getPeer')
       ->invoke(null)
-      ->doSelect(new Criteria(&#10;</xsl:text>
+      ->doSelect(new Criteria(&#10;  </xsl:text>
         <xsl:value-of select="$keys4criteria" /><xsl:text>
-    ));
+      ));
   }
 
   /**
