@@ -402,14 +402,14 @@
      * @throws  rdbms.SQLException in case an error occurs
      */
     public function get</xsl:text><xsl:value-of select="@role" /><xsl:text>() {
-      $r= ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) ?
-        array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) :
-        XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
-          ->getMethod('getPeer')
-          ->invoke(null)
-          ->doSelect(new Criteria(&#10;</xsl:text>
+      $r= ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>'])
+        ? array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>'])
+        : XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
+            ->getMethod('getPeer')
+            ->invoke(null)
+            ->doSelect(new Criteria(&#10;</xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
-      ));
+        ));
       return $r ? $r[0] : null;&#10;    }&#10;</xsl:text>
       </xsl:when>
 
@@ -482,14 +482,14 @@
      * @throws  rdbms.SQLException in case an error occurs
      */
     public function get</xsl:text><xsl:value-of select="@role" /><xsl:text>() {
-      $r= ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) ?
-        array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) :
-        XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
-          ->getMethod('getPeer')
-          ->invoke(null)
-          ->doSelect(new Criteria(&#10;</xsl:text>
-          <xsl:value-of select="$keys4criteria" /><xsl:text>
-      ));
+      $r= ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>'])
+        ? array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>'])
+        : XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
+            ->getMethod('getPeer')
+            ->invoke(null)
+            ->doSelect(new Criteria(&#10;</xsl:text>
+            <xsl:value-of select="$keys4criteria" /><xsl:text>
+        ));
       return $r ? $r[0] : null;&#10;    }&#10;</xsl:text>
       </xsl:when>
 
