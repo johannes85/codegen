@@ -151,9 +151,6 @@
     <xsl:value-of select="my:namespaceName()"/>
 
     <xsl:text>;
-/* This class is part of the XP framework
- *
- */
  
   use lang\XPClass;
   use rdbms\Peer;
@@ -199,7 +196,7 @@
       </xsl:for-each><xsl:text>
       ];
 
-    static function __static() { 
+    static function __static() {
       with ($peer= self::getPeer()); {
         $peer->setTable('</xsl:text><xsl:value-of select="my:separator(@database, @name, @dbtype)"/><xsl:text>');
         $peer->setConnection('</xsl:text><xsl:value-of select="@dbhost"/><xsl:text>');</xsl:text>
