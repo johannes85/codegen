@@ -178,12 +178,12 @@
   <xsl:for-each select="attribute">
     <xsl:value-of select="concat('      $', @name, substring('                                ', 0, 20 - string-length(@name)))"/>
     <xsl:choose>
-      <xsl:when test="@nullable = 'true'">= NULL</xsl:when>
+      <xsl:when test="@nullable = 'true'">= null</xsl:when>
       <xsl:when test="@typename= 'int'">= 0</xsl:when>
       <xsl:when test="@typename= 'string'">= ''</xsl:when>
       <xsl:when test="@typename= 'float'">= 0.0</xsl:when>
-      <xsl:when test="@typename= 'bool'">= FALSE</xsl:when>
-      <xsl:when test="@typename= 'util.Date'">= NULL</xsl:when>
+      <xsl:when test="@typename= 'bool'">= false</xsl:when>
+      <xsl:when test="@typename= 'util.Date'">= null</xsl:when>
     </xsl:choose>
     <xsl:if test="position() != last()">,&#10;</xsl:if>
   </xsl:for-each>
@@ -225,7 +225,7 @@
           <xsl:text>', FieldType::</xsl:text>
           <xsl:value-of select="substring-after(@type, 'DB_ATTRTYPE_')"/>
           <xsl:text>, </xsl:text>
-          <xsl:value-of select="translate(@nullable, $lcletters, $ucletters)"/>
+          <xsl:value-of select="translate(@nullable, $ucletters, $lcletters)"/>
           <xsl:text>]</xsl:text>
           <xsl:if test="position() != last()">,&#10;</xsl:if>
         </xsl:for-each><xsl:text>
@@ -302,7 +302,7 @@
               <xsl:value-of select="key"/>
               <xsl:text>', $</xsl:text>
               <xsl:value-of select="key"/>
-              <xsl:text>, EQUAL]));&#10;      return $r ? $r[0] : NULL;</xsl:text>
+              <xsl:text>, EQUAL]));&#10;      return $r ? $r[0] : null;</xsl:text>
             </xsl:when>
             <xsl:otherwise>
               <xsl:text>      return self::getPeer()-&gt;doSelect(new Criteria(['</xsl:text>
@@ -328,7 +328,7 @@
                 <xsl:text>, EQUAL]</xsl:text>
                 <xsl:if test="position() != last()">,</xsl:if><xsl:text>&#10;</xsl:text>
               </xsl:for-each>
-              <xsl:text>      ));&#10;      return $r ? $r[0] : NULL;</xsl:text>
+              <xsl:text>      ));&#10;      return $r ? $r[0] : null;</xsl:text>
             </xsl:when>
             <xsl:otherwise>
               <xsl:text>      return self::getPeer()-&gt;doSelect(new Criteria(&#10;</xsl:text>
@@ -406,11 +406,11 @@
         array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) :
         XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
           ->getMethod('getPeer')
-          ->invoke(NULL)
+          ->invoke(null)
           ->doSelect(new Criteria(&#10;</xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
       ));
-      return $r ? $r[0] : NULL;&#10;    }&#10;</xsl:text>
+      return $r ? $r[0] : null;&#10;    }&#10;</xsl:text>
       </xsl:when>
 
       <!-- case referenced fields are not unique -->
@@ -426,7 +426,7 @@
       if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) return array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
       return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
         ->getMethod('getPeer')
-        ->invoke(NULL)
+        ->invoke(null)
         ->doSelect(new Criteria(&#10;</xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
       ));
@@ -443,7 +443,7 @@
       if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) return new HashmapIterator($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
       return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
         ->getMethod('getPeer')
-        ->invoke(NULL)
+        ->invoke(null)
         ->iteratorFor(new Criteria(&#10;</xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
       ));
@@ -486,11 +486,11 @@
         array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) :
         XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
           ->getMethod('getPeer')
-          ->invoke(NULL)
+          ->invoke(null)
           ->doSelect(new Criteria(&#10;</xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
       ));
-      return $r ? $r[0] : NULL;&#10;    }&#10;</xsl:text>
+      return $r ? $r[0] : null;&#10;    }&#10;</xsl:text>
       </xsl:when>
 
       <!-- case referenced fields are not unique -->
@@ -506,7 +506,7 @@
       if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) return array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
       return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
         ->getMethod('getPeer')
-        ->invoke(NULL)
+        ->invoke(null)
         ->doSelect(new Criteria(&#10;</xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
       ));
@@ -523,7 +523,7 @@
       if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) return new HashmapIterator($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
       return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
         ->getMethod('getPeer')
-        ->invoke(NULL)
+        ->invoke(null)
         ->iteratorFor(new Criteria(&#10;</xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
       ));
