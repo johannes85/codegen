@@ -151,6 +151,7 @@
     <xsl:text>;
 
 use lang\XPClass;
+use rdbms\DataSet;
 use rdbms\Peer;
 use rdbms\Criteria;
 use rdbms\FieldType;
@@ -169,7 +170,7 @@ use util\HashmapIterator;&#10;</xsl:text>
  *
  * @purpose  Datasource accessor
  */
-class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends \rdbms\DataSet {
+class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
   public&#10;</xsl:text>
 
   <!-- Attributes -->
