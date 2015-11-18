@@ -142,7 +142,6 @@
 
   <func:function name="my:namespaceName">
     <func:result select="translate($package, '.', '\')"/>
-    <!-- <func:result><xsl:value-of select="$package" /></func:result> -->
   </func:function>
 
   <xsl:template match="/">
@@ -204,15 +203,15 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
         </xsl:if><xsl:text>
     $peer->setPrimary([</xsl:text>
           <xsl:for-each select="index[@primary= 'true']/key">
-          <xsl:text>'</xsl:text><xsl:value-of select="."/><xsl:text>'</xsl:text>
+            <xsl:text>'</xsl:text><xsl:value-of select="."/><xsl:text>'</xsl:text>
             <xsl:if test="position() != last()">, </xsl:if>
           </xsl:for-each>
         <xsl:text>]);
     $peer->setTypes([&#10;</xsl:text>
         <xsl:for-each select="attribute">
-        <xsl:text>      '</xsl:text>
-        <xsl:value-of select="@name"/>'<xsl:value-of select="substring('                                ', 0, 20 - string-length(@name))"/>
-        <xsl:text> =&gt; ['</xsl:text>
+          <xsl:text>      '</xsl:text>
+          <xsl:value-of select="@name"/>'<xsl:value-of select="substring('                                ', 0, 20 - string-length(@name))"/>
+          <xsl:text> =&gt; ['</xsl:text>
           <xsl:choose>
             <xsl:when test="@typename= 'int'">%d</xsl:when>
             <xsl:when test="@typename= 'string'">%s</xsl:when>
@@ -317,26 +316,26 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
           <!-- Multiple keys -->
           <xsl:choose>
             <xsl:when test="@unique = 'true'">
-              <xsl:text>    $r= self::getPeer()-&gt;doSelect(new Criteria(&#10;</xsl:text>
+              <xsl:text>    $r= self::getPeer()-&gt;doSelect(new Criteria(&#10;  </xsl:text>
               <xsl:for-each select="key">
                 <xsl:text>      ['</xsl:text>
                 <xsl:value-of select="."/>
                 <xsl:text>', $</xsl:text>
                 <xsl:value-of select="."/>
                 <xsl:text>, EQUAL]</xsl:text>
-                <xsl:if test="position() != last()">,</xsl:if><xsl:text>&#10;</xsl:text>
+                <xsl:if test="position() != last()">,</xsl:if><xsl:text>&#10;  </xsl:text>
               </xsl:for-each>
               <xsl:text>    ));&#10;    return $r ? $r[0] : null;</xsl:text>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:text>    return self::getPeer()-&gt;doSelect(new Criteria(&#10;</xsl:text>
+              <xsl:text>    return self::getPeer()-&gt;doSelect(new Criteria(&#10;  </xsl:text>
               <xsl:for-each select="key">
                 <xsl:text>      ['</xsl:text>
                 <xsl:value-of select="."/>
                 <xsl:text>', $</xsl:text>
                 <xsl:value-of select="."/>
                 <xsl:text>, EQUAL]</xsl:text>
-                <xsl:if test="position() != last()">,</xsl:if><xsl:text>&#10;</xsl:text>
+                <xsl:if test="position() != last()">,</xsl:if><xsl:text>&#10;  </xsl:text>
               </xsl:for-each>
               <xsl:text>    ));</xsl:text>
             </xsl:otherwise>
@@ -379,7 +378,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
     <xsl:variable name="fullclassname"   select="concat($package, '.', my:prefixedClassName(@table))" />
     <xsl:variable name="keys4apidoc">
       <xsl:for-each select="key"><xsl:value-of select="@sourceattribute" />=><xsl:value-of select="@attribute" />
-      <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+        <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
       </xsl:for-each>
     </xsl:variable>
     <xsl:variable name="keys4criteria">
@@ -522,7 +521,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
     return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
       ->getMethod('getPeer')
       ->invoke(null)
-      ->iteratorFor(new Criteria(&#10;</xsl:text>
+      ->iteratorFor(new Criteria(&#10;  </xsl:text>
         <xsl:value-of select="$keys4criteria" /><xsl:text>
     ));
   }&#10;</xsl:text>
