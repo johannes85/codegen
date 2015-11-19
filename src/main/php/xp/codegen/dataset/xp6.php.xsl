@@ -231,18 +231,18 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
       <xsl:if test="0 &lt; count(my:referencing($this) | my:referenced($this))"><xsl:text>
     $peer->setRelations([</xsl:text>
         <xsl:for-each select="my:referencing($this)"><xsl:text>
-        '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => [
+      '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => [
         'classname' => '</xsl:text><xsl:value-of select="concat($package, '.', my:prefixedClassName(@table))" /><xsl:text>',
         'key'       => [
-            </xsl:text><xsl:for-each select="key"><xsl:text>'</xsl:text><xsl:value-of select="@attribute" /><xsl:text>' => '</xsl:text><xsl:value-of select="@sourceattribute" /><xsl:text>',</xsl:text></xsl:for-each><xsl:text>
+          </xsl:text><xsl:for-each select="key"><xsl:text>'</xsl:text><xsl:value-of select="@attribute" /><xsl:text>' => '</xsl:text><xsl:value-of select="@sourceattribute" /><xsl:text>',</xsl:text></xsl:for-each><xsl:text>
         ],
       ],</xsl:text>
         </xsl:for-each>
         <xsl:for-each select="my:referenced($this)"><xsl:text>
-        '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => [
+      '</xsl:text><xsl:value-of select="@role" /><xsl:text>' => [
         'classname' => '</xsl:text><xsl:value-of select="concat($package, '.', my:prefixedClassName(../../@name))" /><xsl:text>',
         'key'       => [
-            </xsl:text><xsl:for-each select="key"><xsl:text>'</xsl:text><xsl:value-of select="@sourceattribute" /><xsl:text>' => '</xsl:text><xsl:value-of select="@attribute" /><xsl:text>',</xsl:text></xsl:for-each><xsl:text>
+          </xsl:text><xsl:for-each select="key"><xsl:text>'</xsl:text><xsl:value-of select="@sourceattribute" /><xsl:text>' => '</xsl:text><xsl:value-of select="@attribute" /><xsl:text>',</xsl:text></xsl:for-each><xsl:text>
         ],
       ],</xsl:text>
         </xsl:for-each><xsl:text>
@@ -404,9 +404,9 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
       : XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
           ->getMethod('getPeer')
           ->invoke(null)
-          ->doSelect(new Criteria(&#10;  </xsl:text>
+          ->doSelect(new Criteria(&#10;    </xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
-        ));
+          ));
     return $r ? $r[0] : null;&#10;  }&#10;</xsl:text>
       </xsl:when>
 
@@ -500,11 +500,13 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
    * @throws  rdbms.SQLException in case an error occurs
    */
   public function get</xsl:text><xsl:value-of select="@role" /><xsl:text>List() {
-    if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) return array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
+    if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) {
+      return array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
+    }
     return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
       ->getMethod('getPeer')
       ->invoke(null)
-      ->doSelect(new Criteria(&#10;  </xsl:text>
+      ->doSelect(new Criteria(&#10;</xsl:text>
         <xsl:value-of select="$keys4criteria" /><xsl:text>
       ));
   }
