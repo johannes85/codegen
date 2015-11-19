@@ -156,7 +156,6 @@ use rdbms\Criteria;
 use rdbms\FieldType;
 use util\HashmapIterator;&#10;</xsl:text>
     <xsl:apply-templates/>
-    <xsl:text>?></xsl:text>
   </xsl:template>
 
   <xsl:template match="table">
