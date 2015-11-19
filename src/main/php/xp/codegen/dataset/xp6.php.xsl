@@ -420,7 +420,9 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
    * @throws  rdbms.SQLException in case an error occurs
    */
   public function get</xsl:text><xsl:value-of select="@role" /><xsl:text>List() {
-    if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) return array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
+    if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) {
+      return array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
+    }
     return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
       ->getMethod('getPeer')
       ->invoke(null)
@@ -437,7 +439,9 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
    * @throws  rdbms.SQLException in case an error occurs
    */
   public function get</xsl:text><xsl:value-of select="@role" /><xsl:text>Iterator() {
-    if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) return new HashmapIterator($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
+    if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) {
+      return new HashmapIterator($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
+    }
     return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
       ->getMethod('getPeer')
       ->invoke(null)
@@ -519,13 +523,15 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
    * @throws  rdbms.SQLException in case an error occurs
    */
   public function get</xsl:text><xsl:value-of select="@role" /><xsl:text>Iterator() {
-    if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) return new HashmapIterator($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
+    if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) {
+      return new HashmapIterator($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
+    }
     return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
       ->getMethod('getPeer')
       ->invoke(null)
-      ->iteratorFor(new Criteria(&#10;  </xsl:text>
+      ->iteratorFor(new Criteria(&#10;</xsl:text>
         <xsl:value-of select="$keys4criteria" /><xsl:text>
-    ));
+      ));
   }&#10;</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
