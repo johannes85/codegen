@@ -165,8 +165,6 @@ use util\HashmapIterator;&#10;</xsl:text>
 /**
  * Class wrapper for table </xsl:text><xsl:value-of select="@name"/>, database <xsl:value-of select="./@database"/><xsl:text>
  * (This class was auto-generated, so please do not change manually)
- *
- * @purpose  Datasource accessor
  */
 class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
   public&#10;</xsl:text>
@@ -261,7 +259,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
   /**
    * column factory
    *
-   * @param   string name
+   * @param   string $name
    * @return  rdbms.Column
    * @throws  lang.IllegalArgumentException
    */
@@ -276,7 +274,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
   /**
    * Gets an instance of this object by index "</xsl:text><xsl:value-of select="@name"/><xsl:text>"
    * </xsl:text><xsl:for-each select="key"><xsl:variable name="key" select="text()"/><xsl:text>
-   * @param   </xsl:text><xsl:value-of select="concat(../../attribute[@name= $key]/@typename, ' ', $key)"/></xsl:for-each><xsl:text>
+   * @param   </xsl:text><xsl:value-of select="concat(../../attribute[@name= $key]/@typename, ' $', $key)"/></xsl:for-each><xsl:text>
    * @return  </xsl:text><xsl:value-of select="concat(../@package, '.', ../@class)"/><xsl:if test="not(@unique= 'true')">[] entity objects</xsl:if><xsl:if test="@unique= 'true'"> entity object</xsl:if><xsl:text>
    * @throws  rdbms.SQLException in case an error occurs
    */
@@ -361,7 +359,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
   /**
    * Sets </xsl:text><xsl:value-of select="@name"/><xsl:text>
    *
-   * @param   </xsl:text><xsl:value-of select="concat(@typename, ' ', @name)"/><xsl:text>
+   * @param   </xsl:text><xsl:value-of select="concat(@typename, ' $', @name)"/><xsl:text>
    * @return  </xsl:text><xsl:value-of select="@typename"/><xsl:text> the previous value
    */
   public function set</xsl:text><xsl:value-of select="my:ucfirst(@name)" /><xsl:text>(</xsl:text>$<xsl:value-of select="@name"/><xsl:text>) {
