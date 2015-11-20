@@ -398,8 +398,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
   public function get</xsl:text><xsl:value-of select="@role" /><xsl:text>() {
     $r= ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>'])
       ? array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>'])
-      : XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
-          ->getPeer()
+      : \</xsl:text><xsl:value-of select="translate($fullclassname, '.', '\')" /><xsl:text>::getPeer()
           ->doSelect(new Criteria(&#10;    </xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
           ));
@@ -419,8 +418,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
     if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) {
       return array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
     }
-    return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
-      ->getPeer()
+    return \</xsl:text><xsl:value-of select="translate($fullclassname, '.', '\')" /><xsl:text>::getPeer()
       ->doSelect(new Criteria(&#10;  </xsl:text>
         <xsl:value-of select="$keys4criteria" /><xsl:text>
       ));
@@ -437,8 +435,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
     if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) {
       return new HashmapIterator($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
     }
-    return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
-      ->getPeer()
+    return \</xsl:text><xsl:value-of select="translate($fullclassname, '.', '\')" /><xsl:text>::getPeer()
       ->iteratorFor(new Criteria(&#10;  </xsl:text>
         <xsl:value-of select="$keys4criteria" /><xsl:text>
       ));
@@ -479,8 +476,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
   public function get</xsl:text><xsl:value-of select="@role" /><xsl:text>() {
     $r= ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>'])
       ? array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>'])
-      : XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
-          ->getPeer()
+      : \</xsl:text><xsl:value-of select="translate($fullclassname, '.', '\')" /><xsl:text>::getPeer()
           ->doSelect(new Criteria(&#10;  </xsl:text>
           <xsl:value-of select="$keys4criteria" /><xsl:text>
         ));
@@ -500,8 +496,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
     if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) {
       return array_values($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
     }
-    return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
-      ->getPeer()
+    return \</xsl:text><xsl:value-of select="translate($fullclassname, '.', '\')" /><xsl:text>::getPeer()
       ->doSelect(new Criteria(&#10;</xsl:text>
         <xsl:value-of select="$keys4criteria" /><xsl:text>
       ));
@@ -518,8 +513,7 @@ class </xsl:text><xsl:value-of select="@class"/><xsl:text> extends DataSet {
     if ($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']) {
       return new HashmapIterator($this->cache['</xsl:text><xsl:value-of select="@role" /><xsl:text>']);
     }
-    return XPClass::forName('</xsl:text><xsl:value-of select="$fullclassname" /><xsl:text>')
-      ->getPeer()
+    return \</xsl:text><xsl:value-of select="translate($fullclassname, '.', '\')" /><xsl:text>::getPeer()
       ->iteratorFor(new Criteria(&#10;</xsl:text>
         <xsl:value-of select="$keys4criteria" /><xsl:text>
       ));
