@@ -34,7 +34,7 @@ use lang\XPClass;
  *
  * Languages
  * ---------
- * The following languages are supported: xp5, xp4
+ * The following languages are supported: xp6, xp5, xp4
  */
 class Generator extends AbstractGenerator {
   const CONSTRAINT_FILE_NAME= '__Constraints';
