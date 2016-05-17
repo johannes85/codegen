@@ -54,7 +54,7 @@ class Generator extends AbstractGenerator {
 
   static function __static() {
     self::$adapters['mysql']= XPClass::forName('rdbms.mysql.MySQLDBAdapter');
-    self::$adapters['sqlite']= XPClass::forName('rdbms.sqlite.SQLiteDBAdapter');
+    self::$adapters['sqlite']= XPClass::forName('rdbms.sqlite3.SQLite3DBAdaper');
     self::$adapters['pgsql']= XPClass::forName('rdbms.pgsql.PostgreSQLDBAdapter');
     self::$adapters['sybase']= XPClass::forName('rdbms.sybase.SybaseDBAdapter');
   }
